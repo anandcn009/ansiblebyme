@@ -1,0 +1,17 @@
+---
+# handlers file for setup-apache
+- name: start apache
+  service:
+    name: httpd
+    state: started
+  when: ansible_os_family == "RedHat"
+  ignore_errors: yes
+
+- name: install apache2
+  apt:
+    name: apache2
+    state: present
+  when: ansible_os_family == "Debian"
+  notify: start apache
+
+
